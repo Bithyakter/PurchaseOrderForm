@@ -9,20 +9,20 @@
 </p>
 
 <div class="col-md-12">
-<table class="table table-hover">
+<table border="1" class="table table-bordered table-hover cell-border table-striped table-responsive">
     <thead>
-        <tr>
+        <tr style="font-size:16px">
             <th>
                 @Html.DisplayNameFor(model => model.Product)
+            </th>           
+            <th>
+                Purchase Price
+            </th>
+            <th>
+                Sale Price
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PurchasePrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SellPrice)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Discount)
@@ -30,9 +30,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Total)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sells)
-            </th>
+           @* <th>
+                Sales
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -42,10 +42,7 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Product)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
+                </td>               
                 <td>
                     @Html.DisplayFor(modelItem => item.PurchasePrice)
                 </td>
@@ -53,18 +50,21 @@
                     @Html.DisplayFor(modelItem => item.SellPrice)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Discount)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Total)
                 </td>
-                <td>
+               @* <td>
                     @Html.DisplayFor(modelItem => item.Sells.SellID)
-                </td>
+                </td>*@
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.DetailsId" class="btn btn-success">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.DetailsId" class="btn btn-info">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.DetailsId" class="btn btn-danger">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.DetailsId" class="btn btn-success fa fa-pencil">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.DetailsId" class="btn btn-info fa fa-info">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.DetailsId" class="btn btn-danger fa fa-trash-o">Delete</a>
                 </td>
             </tr>
         }

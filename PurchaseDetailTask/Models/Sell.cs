@@ -1,7 +1,12 @@
-﻿namespace PurchaseDetailTask.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace PurchaseDetailTask.Models
 {
     public class Sell
     {
+        //[Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int SellID { get; set; }
 
         public string InvoiceNo { get; set; }
@@ -14,7 +19,7 @@
 
         public decimal TotalProfit { get; set; }
 
-        //public virtual IEnumerable<Details> Details { get; set; }
-        public virtual List<Details> Details { get; set; } = new List<Details>();
+        public virtual IEnumerable<Details> Details { get; set; }
+        //public virtual List<Details> Details { get; set; } = new List<Details>();
     }
 }

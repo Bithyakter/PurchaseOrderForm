@@ -7,71 +7,84 @@
 <h4>Product Details</h4>
 <hr />
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
 <div class="col-12 mx-auto pt-0">
     <div class="card">
         <div class="card-header bg-success text-uppercase text-white" style="height:45px;">
-            <h4>Create product details</h4>
+            <h4>Create product details</h4>   
+            @*<button type="button" id="addNew" title="Add Row" class="btn btn-primary mt-2 mx-2 mb-3"><i class="bi bi-plus"></i>Add new</button>*@
         </div>
-
+        
          <form asp-action="Create">
             <div class="row mt-3 m-2">
-                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+               <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                
+               @*<div id="divCont">
+                    <div class="mt-2">*@
+                        <div class="col-md-6">
+                            <div class="form-group mt-2">
+                                <label asp-for="Product" class="control-label"></label>
+                                <input asp-for="Product" class="form-control" />
+                                <span asp-validation-for="Product" class="text-danger"></span>
+                            </div>
+                        </div>
 
-                <div class="col-md-6">            
-                    <div class="form-group">
-                        <label asp-for="Product" class="control-label"></label>
-                        <input asp-for="Product" class="form-control" />
-                        <span asp-validation-for="Product" class="text-danger"></span>
-                    </div>
-                </div>
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group">
+                                <label asp-for="PurchasePrice" class="control-label">Purchase Price</label>
+                                <input asp-for="PurchasePrice" class="form-control" />
+                                <span asp-validation-for="PurchasePrice" class="text-danger"></span>
+                            </div>
+                        </div>
 
-                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label asp-for="Quantity" class="control-label"></label>
-                        <input asp-for="Quantity" class="form-control" />
-                        <span asp-validation-for="Quantity" class="text-danger"></span>
-                    </div>
-                </div>
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group">
+                                <label asp-for="SellPrice" class="control-label">Sale Price</label>
+                                <input asp-for="SellPrice" class="form-control" id="price" onchange="getTotal()"/>
+                                <span asp-validation-for="SellPrice" class="text-danger"></span>
+                            </div>
+                        </div>
 
-                <div class="col-md-6 mt-2">
-                    <div class="form-group">
-                        <label asp-for="PurchasePrice" class="control-label"></label>
-                        <input asp-for="PurchasePrice" class="form-control" />
-                        <span asp-validation-for="PurchasePrice" class="text-danger"></span>
-                    </div>
-                </div>
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group">
+                                <label asp-for="Quantity" class="control-label"></label>
+                                <input asp-for="Quantity" class="form-control" id="qty" onchange="getTotal()"/>
+                                <span asp-validation-for="Quantity" class="text-danger"></span>
+                            </div>
+                        </div>  
 
-                <div class="col-md-6 mt-2">
-                    <div class="form-group">
-                        <label asp-for="SellPrice" class="control-label"></label>
-                        <input asp-for="SellPrice" class="form-control" />
-                        <span asp-validation-for="SellPrice" class="text-danger"></span>
-                    </div>
-                </div>
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group">
+                                <label asp-for="Discount" class="control-label"></label>
+                                <input asp-for="Discount" class="form-control" id="discount" onchange="getTotal()"/>
+                                <span asp-validation-for="Discount" class="text-danger"></span>
+                            </div>
+                        </div>
 
-                <div class="col-md-6 mt-2">
-                    <div class="form-group">
-                        <label asp-for="Discount" class="control-label"></label>
-                        <input asp-for="Discount" class="form-control" />
-                        <span asp-validation-for="Discount" class="text-danger"></span>
-                    </div>
-                </div>
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group">
+                                <label asp-for="Total" class="control-label">Net Total</label>
+                                <input asp-for="Total" class="form-control" id="NetTotal"/>
+                                <span asp-validation-for="Total" class="text-danger"></span>
+                            </div>
+                        </div>        
 
-                <div class="col-md-6 mt-2">
-                    <div class="form-group">
-                        <label asp-for="Total" class="control-label"></label>
-                        <input asp-for="Total" class="form-control" />
-                        <span asp-validation-for="Total" class="text-danger"></span>
-                    </div>
-                </div>
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group">
+                                <label asp-for="SellID" class="control-label">Sale</label>
+                                <select asp-for="SellID" class ="form-control" asp-items="ViewBag.SellID"></select>
+                            </div>
+                        </div>
 
-               @* <div class="col-md-6">
-                    <div class="form-group">
-                        <label asp-for="SellID" class="control-label"></label>
-                        <select asp-for="SellID" class ="form-control" asp-items="ViewBag.SellID"></select>
-                    </div>
-                </div>*@
-
+                        @*<div class="col-sm-4 col-md-3 col-lg-3 mt-2">
+                            <div class="mb-3 row">
+                                <button type="button" onclick="RemoveTextBox(this)" class="btn btn-danger mt-1"><i class="bi bi-trash"></i>Remove</button>
+                            </div>
+                        </div>*@
+                   @* </div>
+               </div>*@
+                
                 <div class="col-12 btn-group mt-2">
                     <div class="col-6 form-group text-right p-2">
                         <a asp-action="Index" class="btn btn-secondary">&nbsp;Back&nbsp;</a>
@@ -85,7 +98,108 @@
          </form>
     </div>
 </div>
-
+@*
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+*@
+
+@section Scripts{
+<script>
+ 
+    function getTotal() {
+
+        var price = document.getElementById("price").value;
+        var qty = document.getElementById("qty").value;
+        var total = price * qty;
+        
+        var discount = document.getElementById("discount").value;
+
+        var NetTotal = total - discount;
+
+        document.getElementById("NetTotal").value = NetTotal;
+    }
+
+
+    $('#addNew').click(function(){
+    var div = document.createElement('DIV');
+    div.innerHTML = GetDynamicTextbox("");
+    document.getElementById("divCont").prepend(div);
+  
+    })
+
+
+    function GetDynamicTextbox(value) {
+        return `<div class="mt-2">
+       
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Product" class="control-label"></label>
+                    <input asp-for="Product" class="form-control" />
+                    <span asp-validation-for="Product" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6 mt-2">
+                <div class="form-group">
+                    <label asp-for="PurchasePrice" class="control-label">Purchase Price</label>
+                    <input asp-for="PurchasePrice" class="form-control" />
+                    <span asp-validation-for="PurchasePrice" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6 mt-2">
+                <div class="form-group">
+                    <label asp-for="SellPrice" class="control-label">Sale Price</label>
+                    <input asp-for="SellPrice" class="form-control" id="price" onchange="getTotal()"/>
+                    <span asp-validation-for="SellPrice" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6 mt-2">
+                <div class="form-group">
+                    <label asp-for="Quantity" class="control-label"></label>
+                    <input asp-for="Quantity" class="form-control" id="qty" onchange="getTotal()"/>
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+            </div>  
+
+            <div class="col-md-6 mt-2">
+                <div class="form-group">
+                    <label asp-for="Discount" class="control-label"></label>
+                    <input asp-for="Discount" class="form-control" id="discount" onchange="getTotal()"/>
+                    <span asp-validation-for="Discount" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6 mt-2">
+                <div class="form-group">
+                    <label asp-for="Total" class="control-label">Net Total</label>
+                    <input asp-for="Total" class="form-control" id="NetTotal"/>
+                    <span asp-validation-for="Total" class="text-danger"></span>
+                </div>
+            </div>                
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="SellID" class="control-label">Sale</label>
+                    <select asp-for="SellID" class ="form-control" asp-items="ViewBag.SellID"></select>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="mb-3 me-5 ms-1 pt-4 row">
+                    <button type="button" onclick="RemoveTextBox(this)" class="btn btn-danger backBtn mx-3 mt-1"><i class="bi bi-trash"></i>Remove</button>
+                </div>
+            </div>
+    </div>`;
+    }
+
+    function RemoveTextBox(div) {
+        document.getElementById("divCont").removeChild(div.parentNode.parentNode.parentNode.parentNode);
+
+    }
+
+
+</script>
 }

@@ -4,11 +4,11 @@ using PurchaseDetailTask.Models;
 
 namespace PurchaseDetailTask.Controllers
 {
-    public class SellsController : Controller
+    public class SalesController : Controller
     {
         private readonly DataContext _context;
 
-        public SellsController(DataContext context)
+        public SalesController(DataContext context)
         {
             _context = context;
         }
@@ -43,40 +43,40 @@ namespace PurchaseDetailTask.Controllers
 
         public IActionResult Create()
         {
-            //return View();
+            return View();
 
-            Sell sell = new Sell();
-            sell.Details.Add(new Details() { DetailsId = 1 });
+            //Sell sell = new Sell();
+            //sell.Details.Add(new Details() { DetailsId = 1 });
 
-            return View(sell);
+            //return View(sell);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("SellID,InvoiceNo,TotalPrice,TotalDiscount,TotalPurchase,TotalProfit")] Sell sell)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(sell);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(sell);
-        //}
-
-        public IActionResult Create(Sell sell)
+        public async Task<IActionResult> Create(Sell sell)
         {
-            foreach (Details d in sell.Details)
+            if (ModelState.IsValid)
             {
-                if (d.Product == null || d.Product.Length == 0)
-                    sell.Details.Remove(d);
+                _context.Add(sell);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-
-            _context.Add(sell);
-            _context.SaveChanges();
-
-            return RedirectToAction("Index");
+            return View(sell);
         }
+
+        //public IActionResult Create(Sell sell)
+        //{
+        //    foreach (Details d in sell.Details)
+        //    {
+        //        if (d.Product == null || d.Product.Length == 0)
+        //            sell.Details.Remove(d);
+        //    }
+
+        //    _context.Add(sell);
+        //    _context.SaveChanges();
+
+        //    return RedirectToAction("Index");
+        //}
 
         public async Task<IActionResult> Edit(int? id)
         {

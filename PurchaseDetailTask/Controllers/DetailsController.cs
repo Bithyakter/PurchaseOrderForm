@@ -46,16 +46,77 @@ namespace PurchaseDetailTask.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DetailsId,Product,Quantity,PurchasePrice,SellPrice,Discount,Total,SellID")] Details details)
+        public async Task<IActionResult> Create(Details details)
         {
-            if (ModelState.IsValid)
+            ////if (ModelState.IsValid)
+
+            //_context.Add(details);
+            //await _context.SaveChangesAsync();
+            //return RedirectToAction(nameof(Index));
+            ////}
+            //ViewData["SellID"] = new SelectList(_context.Sells, "SellID", "SellID", details.SellID);
+            //return View(details);
+
+            Details detail = new Details
             {
-                _context.Add(details);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["SellID"] = new SelectList(_context.Sells, "SellID", "SellID", details.SellID);
-            return View(details);
+                DetailsId = details.DetailsId,
+                Product = details.Product,
+                Quantity = details.Quantity,
+                PurchasePrice = details.PurchasePrice,
+                SellPrice = details.SellPrice,
+                Discount = details.Discount,
+                Total = details.Total,
+                SellID = details.SellID,
+            };
+
+            _context.Add(detail);
+            await _context.SaveChangesAsync();
+
+            //_context.Database.OpenConnection();
+            //_context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [Items].[Items] ON;");
+            //List<Sell> sells = new List<Sell>();
+
+            Sell sells = new Sell();
+            sells.TotalPurchase = details.PurchasePrice;
+            sells.TotalPrice = details.SellPrice;
+            sells.TotalDiscount = details.Discount;
+            sells.TotalProfit = details.Total;
+            sells.SellID = detail.DetailsId;
+
+            _context.Add(sells);
+            await _context.SaveChangesAsync();
+
+            //_context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [Items].[Items] OFF;");
+            //_context.Database.CloseConnection();
+
+            return RedirectToAction("Index");
+
+
+
+            //if (ModelState.IsValid)
+            //{
+            //    Details detail = new Details();
+            //    _context.Details.Add(Details);
+            //    var sells = (from o in _context.Sells where o.SellID == Details.SellID select o).FirstOrDefault();
+
+            //    if (sells == null)
+            //    {
+            //        sells = new Sell();
+            //        sells.productID = Details.SellID;
+            //        sells.quantity = Details.quantity;
+            //        sells.status = "Receive";
+            //        _context.Details.Add(sells);
+            //    }
+            //    else
+            //    {
+            //        sells.quantity += Details.quantity;
+            //        sells.status = "Receive";
+            //    }
+            //    _context.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+            //return View(Details);
+
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -76,15 +137,15 @@ namespace PurchaseDetailTask.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DetailsId,Product,Quantity,PurchasePrice,SellPrice,Discount,Total,SellID")] Details details)
+        public async Task<IActionResult> Edit(int id, Details details)
         {
             if (id != details.DetailsId)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 try
                 {
                     _context.Update(details);
@@ -102,7 +163,7 @@ namespace PurchaseDetailTask.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
+            //}
             ViewData["SellID"] = new SelectList(_context.Sells, "SellID", "SellID", details.SellID);
             return View(details);
         }
