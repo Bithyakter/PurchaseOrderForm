@@ -23,6 +23,6 @@ namespace PurchaseDetailTask.Models
         public int SellID { get; set; }
 
         [ForeignKey("SellID")]
-        public virtual Sell Sells { get; set; }
+        public virtual Sell? Sells { get; set; }
     }
 }
