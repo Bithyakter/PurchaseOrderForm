@@ -48,6 +48,18 @@ namespace PurchaseDetailTask.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Details details)
         {
+            decimal total = 0;
+            //loop start
+            total += details.Total;
+            Sell sells = new Sell();
+            sells.InvoiceNo = "H001";
+            sells.TotalPurchase = details.PurchasePrice;
+            sells.TotalPrice = details.SellPrice;
+            sells.TotalDiscount = details.Discount;
+            sells.TotalProfit = total;
+            _context.Add(sells);
+            await _context.SaveChangesAsync();
+
             ////if (ModelState.IsValid)
 
             //_context.Add(details);
@@ -56,9 +68,11 @@ namespace PurchaseDetailTask.Controllers
             ////}
             //ViewData["SellID"] = new SelectList(_context.Sells, "SellID", "SellID", details.SellID);
             //return View(details);
-
+            
+            total += details.Total;
             Details detail = new Details
             {
+                
                 DetailsId = details.DetailsId,
                 Product = details.Product,
                 Quantity = details.Quantity,
@@ -66,7 +80,7 @@ namespace PurchaseDetailTask.Controllers
                 SellPrice = details.SellPrice,
                 Discount = details.Discount,
                 Total = details.Total,
-                SellID = details.SellID,
+                SellID = sells.SellID,
             };
 
             _context.Add(detail);
@@ -75,47 +89,13 @@ namespace PurchaseDetailTask.Controllers
             //_context.Database.OpenConnection();
             //_context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [Items].[Items] ON;");
             //List<Sell> sells = new List<Sell>();
-
-            Sell sells = new Sell();
-            sells.TotalPurchase = details.PurchasePrice;
-            sells.TotalPrice = details.SellPrice;
-            sells.TotalDiscount = details.Discount;
-            sells.TotalProfit = details.Total;
-            sells.SellID = detail.DetailsId;
-
-            _context.Add(sells);
-            await _context.SaveChangesAsync();
+            
+            
 
             //_context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [Items].[Items] OFF;");
             //_context.Database.CloseConnection();
 
-            return RedirectToAction("Index");
-
-
-
-            //if (ModelState.IsValid)
-            //{
-            //    Details detail = new Details();
-            //    _context.Details.Add(Details);
-            //    var sells = (from o in _context.Sells where o.SellID == Details.SellID select o).FirstOrDefault();
-
-            //    if (sells == null)
-            //    {
-            //        sells = new Sell();
-            //        sells.productID = Details.SellID;
-            //        sells.quantity = Details.quantity;
-            //        sells.status = "Receive";
-            //        _context.Details.Add(sells);
-            //    }
-            //    else
-            //    {
-            //        sells.quantity += Details.quantity;
-            //        sells.status = "Receive";
-            //    }
-            //    _context.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
-            //return View(Details);
+            return RedirectToAction("Index");   
 
         }
 

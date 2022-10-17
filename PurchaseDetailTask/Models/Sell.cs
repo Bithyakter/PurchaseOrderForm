@@ -5,11 +5,11 @@ namespace PurchaseDetailTask.Models
 {
     public class Sell
     {
-        //[Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SellID { get; set; }
 
-        public string InvoiceNo { get; set; }
+        public string? InvoiceNo { get; set; }
 
         public decimal TotalPrice { get; set; }
 
