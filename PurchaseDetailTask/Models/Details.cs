@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PurchaseDetailTask.Models
 {
     public class Details
     {
+        [Key]
         public int DetailsId { get; set; }
 
         public string Product { get; set; }
