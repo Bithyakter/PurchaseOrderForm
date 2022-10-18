@@ -60,18 +60,11 @@ namespace PurchaseDetailTask.Controllers
             _context.Add(sells);
             await _context.SaveChangesAsync();
 
-            ////if (ModelState.IsValid)
-
-            //_context.Add(details);
-            //await _context.SaveChangesAsync();
-            //return RedirectToAction(nameof(Index));
-            ////}
-            //ViewData["SellID"] = new SelectList(_context.Sells, "SellID", "SellID", details.SellID);
-            //return View(details);
-            
             total += details.Total;
+
             Details detail = new Details
-            {               
+            {
+
                 DetailsId = details.DetailsId,
                 Product = details.Product,
                 Quantity = details.Quantity,
@@ -86,6 +79,41 @@ namespace PurchaseDetailTask.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
+
+            //var sale = new Sell()
+            //{
+            //    SellID = sales.SellID,
+            //    InvoiceNo = sales.InvoiceNo,
+            //    TotalPrice = sales.TotalPrice,
+            //    TotalDiscount = sales.TotalDiscount,
+            //    TotalPurchase = sales.TotalPurchase,
+            //    TotalProfit = sales.TotalProfit
+            //};
+
+            //_context.Sells.Add(sale);
+            //await _context.SaveChangesAsync();
+
+
+            //foreach (var i in sales.details)
+            //{
+            //    var details = new Details()
+            //    {
+            //        SellID = sale.SellID,
+            //        Product = i.Product,
+            //        PurchasePrice = i.PurchasePrice,
+            //        SellPrice = i.SellPrice,
+            //        Quantity = i.Quantity,
+            //        Discount = i.Discount,
+            //        Total = i.Total
+            //    };
+
+            //    _context.Details.Add(details);
+            //}
+            //await _context.SaveChangesAsync();
+            //return RedirectToAction(nameof(Create));
+
+            //return View(sales);
+
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -115,23 +143,23 @@ namespace PurchaseDetailTask.Controllers
 
             //if (ModelState.IsValid)
             //{
-                try
+            try
+            {
+                _context.Update(details);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!DetailsExists(details.DetailsId))
                 {
-                    _context.Update(details);
-                    await _context.SaveChangesAsync();
+                    return NotFound();
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!DetailsExists(details.DetailsId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
-                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction(nameof(Index));
             //}
             ViewData["SellID"] = new SelectList(_context.Sells, "SellID", "SellID", details.SellID);
             return View(details);
