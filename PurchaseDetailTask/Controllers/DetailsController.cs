@@ -71,8 +71,7 @@ namespace PurchaseDetailTask.Controllers
             
             total += details.Total;
             Details detail = new Details
-            {
-                
+            {               
                 DetailsId = details.DetailsId,
                 Product = details.Product,
                 Quantity = details.Quantity,
@@ -86,17 +85,7 @@ namespace PurchaseDetailTask.Controllers
             _context.Add(detail);
             await _context.SaveChangesAsync();
 
-            //_context.Database.OpenConnection();
-            //_context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [Items].[Items] ON;");
-            //List<Sell> sells = new List<Sell>();
-            
-            
-
-            //_context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [Items].[Items] OFF;");
-            //_context.Database.CloseConnection();
-
-            return RedirectToAction("Index");   
-
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Edit(int? id)
