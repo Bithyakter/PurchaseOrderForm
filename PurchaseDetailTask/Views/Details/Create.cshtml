@@ -81,116 +81,78 @@
 </div>*@
 
 
-<div class="card">
-	<div class="card-header bg-success text-uppercase text-white text-center mb-2 pt-1 p-4" style="height:25px;">
-		<h6>Purchase Order - Create</h6>
-	</div>
-
-  <form id="PurchaseForm" asp-action="Create">
-
-    <div class="row col-12">      
-        <div class="col-12 ml-5">
-			<table id="CodesTable" class="table table-borderless table-sm mb-0 pb-0">
-			    <thead>
-					<tr>
-						<th>
-							Product 
-						</th>								
-						<th>
-							Purchase price
-						</th>
-                        <th>
-							Sale price
-						</th>
-                        <th>
-							Quantity
-						</th> 
-                        <th>
-							Discount 
-						</th>
-                         <th>
-							Total 
-						</th>
-                       @*<th>
-							Unit
-						</th>*@	
-                        
-                        <th style="width:60px;">
-                            <button id='btnAddDetailRow' type="button" class="btn btn-sm btn-secondary visible" onclick="AddItem(this)">
-                                Add
-                            </button>
-                        </th>
-					</tr>
-				</thead>
-
-            <tbody>                                
-               @* @for (int i = 0; i < Model.Details; i++)
-                {*@
-                    <tr>								
-					<td>
-						<input asp-for="@Model.Product" class="form-control" />
-						<span asp-validation-for="@Model.Product" class="text-danger"></span>
-					</td>
-					<td>
-						<input asp-for="PurchasePrice" class="form-control" />
-						<span asp-validation-for="PurchasePrice" class="text-danger"></span>
-					</td>
-                    <td>
-						<input asp-for="SellPrice" class="form-control" id="price" onchange="getTotal()"/>
-						<span asp-validation-for="SellPrice" class="text-danger"></span>
-					</td>
-                    <td>
-						<input asp-for="Quantity" class="form-control" id="qty" onchange="getTotal()"/>
-						<span asp-validation-for="Quantity" class="text-danger"></span>
-					</td>
-                    <td>
-						<input asp-for="Discount" class="form-control" id="discount" onchange="getTotal()"/>
-						<span asp-validation-for="Discount" class="text-danger"></span>
-					</td>
-                    <td>
-						<input asp-for="Total" class="form-control" id="NetTotal"/>
-						<span asp-validation-for="Total" class="text-danger"></span>
-					</td>
-                    @*<td>
-						<input asp-for="@Model.Details[i].UnitName" class="form-control" readonly />
-					</td>*@
-
-                    <td style="width:60px;">
-                        <button id='btnremove' type="button" class="btn btn-sm btn-danger visible" onclick="DeleteItem(this)">
-                            Delete
-                        </button>
-                    </td>
-                    </tr> 
-                    
-                @*}*@
-            </tbody>             
-			</table>
-
-		</div>
-
-       
-        <div class="form-group btn-group col-12 mb-3 mt-3">
-            <div class="col-1"></div>
-            <div class="col-5">
-                <input type="submit" value="Create" class="btn btn-primary btn-block" />
-            </div>           
-            <div class="col-5">
-                <a class="btn btn-secondary btn-block" asp-action="Index">Back</a>
-            </div>     
-            <div class="col-1"></div>
+<div class="col-12 mx-auto pt-0">
+    <div class="card">
+        <div class="card-header bg-success text-uppercase text-white" style="height:45px;">
+            <h4>Create product details</h4>
         </div>
 
+        <table class="table table-bordered mt-3" id="dynamicAddRemove">
+             <tr>
+                <th class="wd-15p fontColor">Product</th>
+                <th class="wd-15p fontColor">Purchase Price</th>
+                <th class="wd-15p fontColor">Sell Price</th>
+                <th class="wd-15p fontColor">Quantity</th>
+                <th class="wd-15p fontColor">Discount</th>
+                <th class="wd-15p fontColor">Total</th>
+                <th class="wd-10p fontColor td2">
+                <button type="button" name="add" id="add-btn" class="btn btn-success">Add</button></th>
+             </tr>
+           
+             <tfoot>
+                <tr>
+                   <td class="text-right">Grand Total = </td>
+                   <td><input type="text" placeholder="Total Purchase Price" class="form-control purchase_sub_total" readonly></td>
+                   <td><input type="text" placeholder="Total Sale Price" class="form-control sell_sub_total" readonly></td>
+                   <td><input type="text" placeholder="Total Quantity" class="form-control quantity_sub_total" readonly></td>
+                   <td><input type="text" placeholder="Total Discount" class="form-control discount_sub_total" readonly></td>
+                   <td><input type="text" placeholder="Total Profit" class="form-control sub_total" readonly></td>
+                </tr>
+             </tfoot>
+
+          </table>
+    </div>
+    <div class="">
+            
+    </div>
 </div>
-
-</form>
-
-</div>
-
 
 
 @section Scripts{
 <script>
- 
+
+      var  i = 1;
+      $("#add-btn").click(function () {
+         //++i;
+          $("#dynamicAddRemove").append(
+              '<tr><td class="td"><input type="text" name="product[' + i + ']" placeholder="Enter Product Name" class="form-control" id="product_' + i + '" /></td><td class="td"><input type="text" name="purchasePrice[' + i + ']" placeholder="Enter Purchase Price" class="form-control PurchasePrice" id="purchasePrice_' + i + '" /></td><td class="td"><input type="text" name="SellPrice[' + i + ']" placeholder="Enter Sell Price" class="form-control SellPrice" id="SellPrice_' + i + '" /></td><td class="td"><input type="text" name="Quantity[' + i + ']" placeholder="Enter Quantity"  class="form-control Quantity" id="quantity_' + i + '" /></td><td class="td"><input type="text" name="Discount[' + i + ']" placeholder="Enter Discount" class="form-control Discount" id="discount_' + i + '" /></td><td class="td"><input type="text" name="Total[' + i + ']" placeholder="Subtotal" class="form-control Total" id="total_' + i + '" value="0.00" readonly /></td></button></td><td class="td2"><button type="button" name="add" class="btn btn-danger remove-tr">Remove</button></td></tr>'
+                         
+             );
+           i++;
+       });
+
+      $(document).on('click', '.remove-tr', function () {
+          $(this).parents('tr').remove();
+      });
+
+      //on key up of total calculation
+      $(document).on('keyup', '.PurchasePrice , .SellPrice, .Quantity, .Discount', function () {
+          //get amt and qty value
+          var purchasePrice = $(this).closest('tr').find('.PurchasePrice').val();
+          var sellPrice = $(this).closest('tr').find('.SellPrice').val();
+          var quantity = $(this).closest('tr').find('.Quantity').val();
+          var discount = $(this).closest('tr').find('.Discount').val();
+          var total = sellPrice * quantity - discount;
+          //add value to required total td
+          $(this).closest('tr').find('.Total').val(total);
+
+          // Calculate value of grand total row
+      });
+      
+      $(document).ready(function(){
+         
+      });
+
     function getTotal() {
 
         var price = document.getElementById("price").value;
@@ -203,76 +165,6 @@
 
         document.getElementById("NetTotal").value = NetTotal;
     }
-
-
-    function AddItem(btn) {
-
-        var table;
-        table = document.getElementById('CodesTable');
-        var rows = table.getElementsByTagName('tr');
-        var rowOuterHtml = rows[rows.length - 1].outerHTML;
-
-        var lastrowIdx = rows.length - 2;
-
-        var nextrowIdx = eval(lastrowIdx) + 1;
-
-        rowOuterHtml = rowOuterHtml.replaceAll('_' + lastrowIdx + '_', '_' + nextrowIdx + '_');
-        rowOuterHtml = rowOuterHtml.replaceAll('[' + lastrowIdx + ']', '[' + nextrowIdx + ']');
-        rowOuterHtml = rowOuterHtml.replaceAll('-' + lastrowIdx, '-' + nextrowIdx);
-
-        var newRow = table.insertRow();
-        newRow.innerHTML = rowOuterHtml;
-
-        var x = document.getElementsByTagName("INPUT");
-
-        for (var cnt = 0; cnt < x.length; cnt++) {
-            if (x[cnt].type == "text" && x[cnt].id.indexOf('_' + nextrowIdx + '_') > 0) {
-                if (x[cnt].id.indexOf('Unit') == 0)
-                    x[cnt].value = '';
-            }
-            else if (x[cnt].type == "number" && x[cnt].id.indexOf('_' + nextrowIdx + '_') > 0)
-                x[cnt].value = 0;
-        }
-
-        rebindvalidators();
-    }
-
-    function rebindvalidators() {
-
-        var $form = $("#PurchaseForm");
-
-        $form.unbind();
-
-        $form.data("validator", null);
-
-        $.validator.unobtrusive.parse($form);
-
-        $form.validate($form.data("unobtrusiveValidation").options);
-    }
-
-
-    function DeleteItem(btn) {
-
-	   var table = document.getElementById('CodesTable');
-	   var rows = table.getElementsByTagName('tr');	           
-            
-	    var btnIdx = btn.id.replaceAll('btnremove-', '');
-        var idOfQuantity = btnIdx + "__Quantity";
-        var txtQuantity = document.querySelector("[id$='" + idOfQuantity + "']");
-
-        txtQuantity.value = 0;
-                        
-
-        var idOfIsDeleted = btnIdx + "__IsDeleted";
-        var txtIsDeleted = document.querySelector("[id$='" + idOfIsDeleted + "']");            
-        txtIsDeleted.value="true";
-                       
-        $(btn).closest('tr').hide();
-
-        CalcTotals();
-    }
-
-
 
 </script>
 }
