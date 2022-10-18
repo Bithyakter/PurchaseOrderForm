@@ -82,11 +82,13 @@
 
 
 <div class="col-12 mx-auto pt-0">
+    <!--CARD-->
     <div class="card">
         <div class="card-header bg-success text-uppercase text-white" style="height:45px;">
             <h4>Create product details</h4>
         </div>
 
+        <!--TABLE-->
         <table class="table table-bordered mt-3" id="dynamicAddRemove">
              <tr>
                 <th class="wd-15p fontColor">Product</th>
@@ -101,7 +103,7 @@
            
              <tfoot>
                 <tr>
-                   <td class="text-right">Grand Total = </td>
+                   <td class="text-right">Grand Total= </td>
                    <td><input type="text" placeholder="Total Purchase Price" class="form-control purchase_sub_total" readonly></td>
                    <td><input type="text" placeholder="Total Sale Price" class="form-control sell_sub_total" readonly></td>
                    <td><input type="text" placeholder="Total Quantity" class="form-control quantity_sub_total" readonly></td>
@@ -110,11 +112,21 @@
                 </tr>
              </tfoot>
 
-          </table>
+        </table>
+         
+        <!--ACTION BUTTON-->
+        <div class="col-12 btn-group mt-2">
+            <div class="col-6 form-group text-right p-2 ms-5">
+                <a asp-action="Index" class="btn btn-secondary w-50 ms-5 d-block">&nbsp;Back&nbsp;</a>
+            </div>
+
+            <div class="col-6 form-group text-left p-2">
+                <input type="submit" value="Create" class="btn btn-primary w-50 d-block" />
+            </div>
+        </div>
+
     </div>
-    <div class="">
-            
-    </div>
+
 </div>
 
 
@@ -125,11 +137,11 @@
       $("#add-btn").click(function () {
          //++i;
           $("#dynamicAddRemove").append(
-              '<tr><td class="td"><input type="text" name="product[' + i + ']" placeholder="Enter Product Name" class="form-control" id="product_' + i + '" /></td><td class="td"><input type="text" name="purchasePrice[' + i + ']" placeholder="Enter Purchase Price" class="form-control PurchasePrice" id="purchasePrice_' + i + '" /></td><td class="td"><input type="text" name="SellPrice[' + i + ']" placeholder="Enter Sell Price" class="form-control SellPrice" id="SellPrice_' + i + '" /></td><td class="td"><input type="text" name="Quantity[' + i + ']" placeholder="Enter Quantity"  class="form-control Quantity" id="quantity_' + i + '" /></td><td class="td"><input type="text" name="Discount[' + i + ']" placeholder="Enter Discount" class="form-control Discount" id="discount_' + i + '" /></td><td class="td"><input type="text" name="Total[' + i + ']" placeholder="Subtotal" class="form-control Total" id="total_' + i + '" value="0.00" readonly /></td></button></td><td class="td2"><button type="button" name="add" class="btn btn-danger remove-tr">Remove</button></td></tr>'
+              '<tr><td class="td"><input type="text" name="product[' + i + ']" placeholder="Enter Product Name" class="form-control" id="product_' + i + '" /></td><td class="td"><input type="text" name="purchasePrice[' + i + ']" placeholder="Enter Purchase Price" class="form-control PurchasePrice" id="purchasePrice_' + i + '" /></td><td class="td"><input type="text" name="SellPrice[' + i + ']" placeholder="Enter Sale Price" class="form-control SellPrice" id="SellPrice_' + i + '" /></td><td class="td"><input type="text" name="Quantity[' + i + ']" placeholder="Enter Quantity"  class="form-control Quantity" id="quantity_' + i + '" /></td><td class="td"><input type="text" name="Discount[' + i + ']" placeholder="Enter Discount" class="form-control Discount" id="discount_' + i + '" /></td><td class="td"><input type="text" name="Total[' + i + ']" placeholder="Subtotal" class="form-control Total" id="total_' + i + '" value="0.00" readonly /></td></button></td><td class="td2"><button type="button" name="add" class="btn btn-danger remove-tr">Remove</button></td></tr>'
                          
              );
            i++;
-       });
+      });
 
       $(document).on('click', '.remove-tr', function () {
           $(this).parents('tr').remove();
@@ -137,7 +149,6 @@
 
       //on key up of total calculation
       $(document).on('keyup', '.PurchasePrice , .SellPrice, .Quantity, .Discount', function () {
-          //get amt and qty value
           var purchasePrice = $(this).closest('tr').find('.PurchasePrice').val();
           var sellPrice = $(this).closest('tr').find('.SellPrice').val();
           var quantity = $(this).closest('tr').find('.Quantity').val();
@@ -147,12 +158,16 @@
           $(this).closest('tr').find('.Total').val(total);
 
           // Calculate value of grand total row
+
+
+
       });
       
       $(document).ready(function(){
          
       });
 
+    //CALCULATIONS OF PRODUCTS
     function getTotal() {
 
         var price = document.getElementById("price").value;
