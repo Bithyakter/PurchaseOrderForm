@@ -46,37 +46,45 @@ namespace PurchaseDetailTask.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Details details)
+        public async Task<IActionResult> Create(IFormCollection details)
         {
-            decimal total = 0;
-            //loop start
-            total += details.Total;
-            Sell sells = new Sell();
-            sells.InvoiceNo = "H001";
-            sells.TotalPurchase = details.PurchasePrice;
-            sells.TotalPrice = details.SellPrice;
-            sells.TotalDiscount = details.Discount;
-            sells.TotalProfit = total;
-            _context.Add(sells);
-            await _context.SaveChangesAsync();
+            var j = details.ToList();
+            //for (int i = 1; i < length; i++)
+            //{
 
-            total += details.Total;
+            //}
+            var g = details["product[1]"];
+            //var k = details.Get("product[1]");
 
-            Details detail = new Details
-            {
+            //decimal total = 0;
+            ////loop start
+            //total += details.Total;
+            //Sell sells = new Sell();
+            //sells.InvoiceNo = "H001";
+            //sells.TotalPurchase = details.PurchasePrice;
+            //sells.TotalPrice = details.SellPrice;
+            //sells.TotalDiscount = details.Discount;
+            //sells.TotalProfit = total;
+            //_context.Add(sells);
+            //await _context.SaveChangesAsync();
 
-                DetailsId = details.DetailsId,
-                Product = details.Product,
-                Quantity = details.Quantity,
-                PurchasePrice = details.PurchasePrice,
-                SellPrice = details.SellPrice,
-                Discount = details.Discount,
-                Total = details.Total,
-                SellID = sells.SellID,
-            };
+            //total += details.Total;
 
-            _context.Add(detail);
-            await _context.SaveChangesAsync();
+            //Details detail = new Details
+            //{
+
+            //    DetailsId = details.DetailsId,
+            //    Product = details.Product,
+            //    Quantity = details.Quantity,
+            //    PurchasePrice = details.PurchasePrice,
+            //    SellPrice = details.SellPrice,
+            //    Discount = details.Discount,
+            //    Total = details.Total,
+            //    SellID = sells.SellID,
+            //};
+
+            //_context.Add(detail);
+            //await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
 
