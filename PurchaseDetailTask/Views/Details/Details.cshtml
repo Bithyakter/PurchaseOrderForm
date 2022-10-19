@@ -23,13 +23,13 @@
             @Html.DisplayFor(model => model.Quantity)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PurchasePrice)
+            Purchase price
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.PurchasePrice)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SellPrice)
+           Sale price
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.SellPrice)
@@ -48,7 +48,6 @@
         </dd>       
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.DetailsId">Edit</a> |
+<div>    
     <a asp-action="Index">Back to List</a>
 </div>
