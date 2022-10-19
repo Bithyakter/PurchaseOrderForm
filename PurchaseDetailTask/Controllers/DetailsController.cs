@@ -57,7 +57,7 @@ namespace PurchaseDetailTask.Controllers
 
 
             decimal total = 0;
-            //loop start
+
             total += details.Total;
             Sell sells = new Sell();
             sells.InvoiceNo = "H001";
@@ -87,42 +87,7 @@ namespace PurchaseDetailTask.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
-
-            //var sale = new Sell()
-            //{
-            //    SellID = sales.SellID,
-            //    InvoiceNo = sales.InvoiceNo,
-            //    TotalPrice = sales.TotalPrice,
-            //    TotalDiscount = sales.TotalDiscount,
-            //    TotalPurchase = sales.TotalPurchase,
-            //    TotalProfit = sales.TotalProfit
-            //};
-
-            //_context.Sells.Add(sale);
-            //await _context.SaveChangesAsync();
-
-
-            //foreach (var i in sales.details)
-            //{
-            //    var details = new Details()
-            //    {
-            //        SellID = sale.SellID,
-            //        Product = i.Product,
-            //        PurchasePrice = i.PurchasePrice,
-            //        SellPrice = i.SellPrice,
-            //        Quantity = i.Quantity,
-            //        Discount = i.Discount,
-            //        Total = i.Total
-            //    };
-
-            //    _context.Details.Add(details);
-            //}
-            //await _context.SaveChangesAsync();
-            //return RedirectToAction(nameof(Create));
-
-            //return View(sales);
-
-         }
+        }
 
         public async Task<IActionResult> Edit(int? id)
         {
