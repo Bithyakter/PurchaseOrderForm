@@ -48,6 +48,14 @@ namespace PurchaseDetailTask.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Details details)
         {
+            //var j = details.ToList();
+            //for (int i = 1; i < details.Count; i++)
+            //{
+
+            //}
+            //var p = details["product[1]"];
+
+
             decimal total = 0;
             //loop start
             total += details.Total;
@@ -114,7 +122,7 @@ namespace PurchaseDetailTask.Controllers
 
             //return View(sales);
 
-        }
+         }
 
         public async Task<IActionResult> Edit(int? id)
         {

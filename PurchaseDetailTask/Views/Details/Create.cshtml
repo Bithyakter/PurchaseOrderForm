@@ -6,273 +6,184 @@
 
 <h4>Product Details</h4>
 <hr />
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
-@*<div class="col-12 mx-auto pt-0">
-    <div class="card">
-        <div class="card-header bg-success text-uppercase text-white" style="height:45px;">
-            <h4>Create product details</h4>   
-        </div>
-        
-         <form asp-action="Create">
-            <div class="row mt-3 m-2">
-               <div asp-validation-summary="ModelOnly" class="text-danger"></div>   
-                    <div class="col-md-6">
-                        <div class="form-group mt-2">
-                            <label asp-for="Product" class="control-label"></label>
-                            <input asp-for="Product" class="form-control" />
-                            <span asp-validation-for="Product" class="text-danger"></span>
-                        </div>
-                    </div>
+<!--CARD-->
+<div class="card w-100">
+    <div class="card-header bg-success text-uppercase text-white mb-3" style="height:45px;">
+        <h4>Create product details</h4>
+    </div>
 
-                    <div class="col-md-6 mt-2">
-                        <div class="form-group">
-                            <label asp-for="PurchasePrice" class="control-label">Purchase Price</label>
-                            <input asp-for="PurchasePrice" class="form-control" />
-                            <span asp-validation-for="PurchasePrice" class="text-danger"></span>
-                        </div>
-                    </div>
+    <!--FORM-->
+    <form asp-action="Create" id="DetailsForm">
+        <div class="row col-12">      
+            <div class="col-12 ml-5">
+       
+            <!--TABLE-->
+            <table class="order-list table table-borderless table-sm mb-0 pb-0">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Purchase price</th>
+                        <th>Sale price</th>
+                        <th>Quantity</th>
+                        <th>Discount</th>
+                        <th>Total</th>
 
-                    <div class="col-md-6 mt-2">
-                        <div class="form-group">
-                            <label asp-for="SellPrice" class="control-label">Sale Price</label>
-                            <input asp-for="SellPrice" class="form-control" id="price" onchange="getTotal()"/>
-                            <span asp-validation-for="SellPrice" class="text-danger"></span>
-                        </div>
-                    </div>
+                        <th style="width:60px;">
+                             <button type="button" id="addrow" value="Add Product" class="btn btn-success">Add</button>
+                        </th>                       
+                    </tr>
+                </thead>
 
-                    <div class="col-md-6 mt-2">
-                        <div class="form-group">
-                            <label asp-for="Quantity" class="control-label"></label>
-                            <input asp-for="Quantity" class="form-control" id="qty" onchange="getTotal()"/>
-                            <span asp-validation-for="Quantity" class="text-danger"></span>
-                        </div>
-                    </div>  
+                <tbody>
+                    <tr>
+                        <td><input type="text" class="form-control" name="Product" /></td>
+                        <td><input type="text" class="form-control" name="PurchasePrice" /></td>
+                        <td><input type="text" class="form-control" name="SellPrice" /></td>
+                        <td><input type="text" class="form-control" name="Quantity" /></td>
+                        <td><input type="text" class="form-control" name="Discount" /></td>
+                        <td class="d-none"><input type="text" class="form-control" name="Profit" /></td>
+                        <td><input type="text" class="form-control" name="Total" readonly="readonly" /></td>
+                        
+                        <td style="width:60px;">                            
+                            <a class="btn btn-sm btn-danger deleteRow">Remove</a>
+                         </td>                       
+                    </tr>
+                </tbody>
 
-                    <div class="col-md-6 mt-2">
-                        <div class="form-group">
-                            <label asp-for="Discount" class="control-label"></label>
-                            <input asp-for="Discount" class="form-control" id="discount" onchange="getTotal()"/>
-                            <span asp-validation-for="Discount" class="text-danger"></span>
-                        </div>
-                    </div>
+                <tfoot>
+                    
 
-                    <div class="col-md-6 mt-2">
-                        <div class="form-group">
-                            <label asp-for="Total" class="control-label">Net Total</label>
-                            <input asp-for="Total" class="form-control" id="NetTotal"/>
-                            <span asp-validation-for="Total" class="text-danger"></span>
-                        </div>
-                    </div>
-                
-                <div class="col-12 btn-group mt-2">
-                    <div class="col-6 form-group text-right p-2">
-                        <a asp-action="Index" class="btn btn-secondary">&nbsp;Back&nbsp;</a>
-                    </div>
+                    <tr>
+                        <td colspan="6" style="text-align: right;">Total Price : <span id="TotalPrice"></span></td>
+                    </tr>
 
-                    <div class="col-6 form-group text-left p-2">
-                        <input type="submit" value="Create" class="btn btn-primary" />
-                    </div>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Total Purchase price: <span id="TotalPurchasePrice"></span>
+                        </td>
+                        <td >
+                            Total Sale price: <span id="TotalSalePrice"></span>
+                        </td>
+                        <td >
+                            Total Quantity: <span id="TotalQuantity"></span>
+                        </td>
+                            <td >
+                            Total Discount: <span id="TotalDiscount"></span>
+                        </td>
+                            <td >
+                            Total Profit: <span id="TotalProfit"></span>
+                        </td>
+            
+                    </tr>
+                </tfoot>
+            </table>
+
+            </div>
+
+            <!--ACTION BUTTON-->
+            <div class="col-12 btn-group mt-2 mb-2">
+                <div class="col-6 form-group text-right p-2 ms-5">
+                    <a asp-action="Index" class="btn btn-secondary w-50 ms-5 d-block">&nbsp;Back&nbsp;</a>
+                </div>
+
+                <div class="col-6 form-group text-left p-2">
+                    @*<input hidden class="TotalRow" value="" name="TotalRow" type="text"/>*@
+                    <input type="submit" value="Create" class="btn btn-primary w-50 d-block" />
                 </div>
             </div>
-         </form>
-    </div>
-</div>*@
-
-
-<div class="card">
-	<div class="card-header bg-success text-uppercase text-white text-center mb-2 pt-1 p-4" style="height:25px;">
-		<h6>Purchase Order - Create</h6>
-	</div>
-
-  <form id="PurchaseForm" asp-action="Create">
-
-    <div class="row col-12">      
-        <div class="col-12 ml-5">
-			<table id="CodesTable" class="table table-borderless table-sm mb-0 pb-0">
-			    <thead>
-					<tr>
-						<th>
-							Product 
-						</th>								
-						<th>
-							Purchase price
-						</th>
-                        <th>
-							Sale price
-						</th>
-                        <th>
-							Quantity
-						</th> 
-                        <th>
-							Discount 
-						</th>
-                         <th>
-							Total 
-						</th>
-                       @*<th>
-							Unit
-						</th>*@	
-                        
-                        <th style="width:60px;">
-                            <button id='btnAddDetailRow' type="button" class="btn btn-sm btn-secondary visible" onclick="AddItem(this)">
-                                Add
-                            </button>
-                        </th>
-					</tr>
-				</thead>
-
-            <tbody>                                
-               @* @for (int i = 0; i < Model.Details; i++)
-                {*@
-                    <tr>								
-					<td>
-						<input asp-for="@Model.Product" class="form-control" />
-						<span asp-validation-for="@Model.Product" class="text-danger"></span>
-					</td>
-					<td>
-						<input asp-for="PurchasePrice" class="form-control" />
-						<span asp-validation-for="PurchasePrice" class="text-danger"></span>
-					</td>
-                    <td>
-						<input asp-for="SellPrice" class="form-control" id="price" onchange="getTotal()"/>
-						<span asp-validation-for="SellPrice" class="text-danger"></span>
-					</td>
-                    <td>
-						<input asp-for="Quantity" class="form-control" id="qty" onchange="getTotal()"/>
-						<span asp-validation-for="Quantity" class="text-danger"></span>
-					</td>
-                    <td>
-						<input asp-for="Discount" class="form-control" id="discount" onchange="getTotal()"/>
-						<span asp-validation-for="Discount" class="text-danger"></span>
-					</td>
-                    <td>
-						<input asp-for="Total" class="form-control" id="NetTotal"/>
-						<span asp-validation-for="Total" class="text-danger"></span>
-					</td>
-                    @*<td>
-						<input asp-for="@Model.Details[i].UnitName" class="form-control" readonly />
-					</td>*@
-
-                    <td style="width:60px;">
-                        <button id='btnremove' type="button" class="btn btn-sm btn-danger visible" onclick="DeleteItem(this)">
-                            Delete
-                        </button>
-                    </td>
-                    </tr> 
-                    
-                @*}*@
-            </tbody>             
-			</table>
-
-		</div>
-
-       
-        <div class="form-group btn-group col-12 mb-3 mt-3">
-            <div class="col-1"></div>
-            <div class="col-5">
-                <input type="submit" value="Create" class="btn btn-primary btn-block" />
-            </div>           
-            <div class="col-5">
-                <a class="btn btn-secondary btn-block" asp-action="Index">Back</a>
-            </div>     
-            <div class="col-1"></div>
         </div>
-
+    </form>
+        
 </div>
-
-</form>
-
-</div>
-
 
 
 @section Scripts{
 <script>
- 
-    function getTotal() {
+   $(document).ready(function () {
+    var counter = 1;
 
-        var price = document.getElementById("price").value;
-        var qty = document.getElementById("qty").value;
-        var total = price * qty;
-        
-        var discount = document.getElementById("discount").value;
+    $("#addrow").on("click", function () {
+        counter++;
 
-        var NetTotal = total - discount;
+        var newRow = $("<tr>");
+        var cols = "";
+        cols += '<td><input type="text" class="form-control" name="Product' + counter + '"/></td>';
+        cols += '<td><input type="text" class="form-control" name="PurchasePrice' + counter + '"/></td>';
+        cols += '<td><input type="number" class="form-control" name="SellPrice' + counter + '"/></td>';
+        cols += '<td><input type="number" class="form-control" name="Quantity' + counter + '"/></td>';
+        cols += '<td><input type="number" class="form-control" name="Discount' + counter + '"/></td>'; 
+        cols += '<td class="d-none"><input type="number" class="form-control" name="Profit' + counter + '"/></td>';
+        cols += '<td><input type="text" class="form-control" name="Total' + counter + '" readonly="readonly"/></td>';
+        cols += '<td style="width:60px;"><a class="btn btn-sm btn-danger deleteRow">Remove</a></td>';
+        newRow.append(cols);
 
-        document.getElementById("NetTotal").value = NetTotal;
-    }
+        $("table.order-list").append(newRow);
+    });
 
+    $("table.order-list").on("change", 'input[name^="SellPrice"], input[name^="Discount"], input[name^="Quantity"], input[name^="PurchasePrice"]', function (event) {
+        calculateRow($(this).closest("tr"));
+        calculateGrandTotal();
+    });
 
-    function AddItem(btn) {
+    $("table.order-list").on("click", "a.deleteRow", function (event) {
+        $(this).closest("tr").remove();
+        calculateGrandTotal();
+    });
+});
 
-        var table;
-        table = document.getElementById('CodesTable');
-        var rows = table.getElementsByTagName('tr');
-        var rowOuterHtml = rows[rows.length - 1].outerHTML;
+function calculateRow(row) {
+    var SellPrice = +row.find('input[name^="SellPrice"]').val();
+    var PurchasePrice = +row.find('input[name^="PurchasePrice"]').val();
+    var Quantity = +row.find('input[name^="Quantity"]').val();
+    let Discount= +row.find('input[name^="Discount"]').val(); 
+    
+    const rowTotal=((SellPrice * Quantity)-Discount)
+    const profit =((SellPrice-PurchasePrice)*Quantity)-Discount
+    row.find('input[name^="Profit"]').val(profit);
+    row.find('input[name^="Total"]').val(rowTotal);
+}
 
-        var lastrowIdx = rows.length - 2;
+function calculateGrandTotal() {
+    let totalQuantity = 0;
+    let totalPurchasePrice = 0;
+    let totalSellPrice = 0;
+    let totalDiscount = 0;
+    let totalPrice = 0;
+    let totalProfit = 0;
 
-        var nextrowIdx = eval(lastrowIdx) + 1;
+    $("table.order-list").find('input[name^="Quantity"]').each(function () {
+        totalQuantity += +$(this).val();
+    });
 
-        rowOuterHtml = rowOuterHtml.replaceAll('_' + lastrowIdx + '_', '_' + nextrowIdx + '_');
-        rowOuterHtml = rowOuterHtml.replaceAll('[' + lastrowIdx + ']', '[' + nextrowIdx + ']');
-        rowOuterHtml = rowOuterHtml.replaceAll('-' + lastrowIdx, '-' + nextrowIdx);
+    $("table.order-list").find('input[name^="PurchasePrice"]').each(function () {
+        totalPurchasePrice += +$(this).val();
+    });
 
-        var newRow = table.insertRow();
-        newRow.innerHTML = rowOuterHtml;
+    $("table.order-list").find('input[name^="SellPrice"]').each(function () {
+        totalSellPrice += +$(this).val();
+    });
 
-        var x = document.getElementsByTagName("INPUT");
+    $("table.order-list").find('input[name^="Discount"]').each(function () {
+        totalDiscount += +$(this).val();
+    });
 
-        for (var cnt = 0; cnt < x.length; cnt++) {
-            if (x[cnt].type == "text" && x[cnt].id.indexOf('_' + nextrowIdx + '_') > 0) {
-                if (x[cnt].id.indexOf('Unit') == 0)
-                    x[cnt].value = '';
-            }
-            else if (x[cnt].type == "number" && x[cnt].id.indexOf('_' + nextrowIdx + '_') > 0)
-                x[cnt].value = 0;
-        }
+    $("table.order-list").find('input[name^="Total"]').each(function () {
+        totalPrice += +$(this).val();
+    });
 
-        rebindvalidators();
-    }
+    $("table.order-list").find('input[name^="Profit"]').each(function () {
+        totalProfit += +$(this).val();
+    });
 
-    function rebindvalidators() {
-
-        var $form = $("#PurchaseForm");
-
-        $form.unbind();
-
-        $form.data("validator", null);
-
-        $.validator.unobtrusive.parse($form);
-
-        $form.validate($form.data("unobtrusiveValidation").options);
-    }
-
-
-    function DeleteItem(btn) {
-
-	   var table = document.getElementById('CodesTable');
-	   var rows = table.getElementsByTagName('tr');	           
-            
-	    var btnIdx = btn.id.replaceAll('btnremove-', '');
-        var idOfQuantity = btnIdx + "__Quantity";
-        var txtQuantity = document.querySelector("[id$='" + idOfQuantity + "']");
-
-        txtQuantity.value = 0;
-                        
-
-        var idOfIsDeleted = btnIdx + "__IsDeleted";
-        var txtIsDeleted = document.querySelector("[id$='" + idOfIsDeleted + "']");            
-        txtIsDeleted.value="true";
-                       
-        $(btn).closest('tr').hide();
-
-        CalcTotals();
-    }
-
-
-
+    $("#TotalPurchasePrice").text(totalPurchasePrice);
+    $("#TotalSalePrice").text(totalSellPrice);
+    $("#TotalQuantity").text(totalQuantity);
+    $("#TotalDiscount").text(totalDiscount);
+    $("#TotalPrice").text(totalPrice);
+    $("#TotalProfit").text(totalProfit);
+}
 </script>
 }
