@@ -46,45 +46,45 @@ namespace PurchaseDetailTask.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormCollection details)
+        public async Task<IActionResult> Create(Details details)
         {
-            var j = details.ToList();
-            //for (int i = 1; i < length; i++)
+            //var j = details.ToList();
+            //for (int i = 1; i < details.Count; i++)
             //{
 
             //}
-            var g = details["product[1]"];
-            //var k = details.Get("product[1]");
+            //var p = details["product[1]"];
 
-            //decimal total = 0;
-            ////loop start
-            //total += details.Total;
-            //Sell sells = new Sell();
-            //sells.InvoiceNo = "H001";
-            //sells.TotalPurchase = details.PurchasePrice;
-            //sells.TotalPrice = details.SellPrice;
-            //sells.TotalDiscount = details.Discount;
-            //sells.TotalProfit = total;
-            //_context.Add(sells);
-            //await _context.SaveChangesAsync();
 
-            //total += details.Total;
+            decimal total = 0;
+            //loop start
+            total += details.Total;
+            Sell sells = new Sell();
+            sells.InvoiceNo = "H001";
+            sells.TotalPurchase = details.PurchasePrice;
+            sells.TotalPrice = details.SellPrice;
+            sells.TotalDiscount = details.Discount;
+            sells.TotalProfit = total;
+            _context.Add(sells);
+            await _context.SaveChangesAsync();
 
-            //Details detail = new Details
-            //{
+            total += details.Total;
 
-            //    DetailsId = details.DetailsId,
-            //    Product = details.Product,
-            //    Quantity = details.Quantity,
-            //    PurchasePrice = details.PurchasePrice,
-            //    SellPrice = details.SellPrice,
-            //    Discount = details.Discount,
-            //    Total = details.Total,
-            //    SellID = sells.SellID,
-            //};
+            Details detail = new Details
+            {
 
-            //_context.Add(detail);
-            //await _context.SaveChangesAsync();
+                DetailsId = details.DetailsId,
+                Product = details.Product,
+                Quantity = details.Quantity,
+                PurchasePrice = details.PurchasePrice,
+                SellPrice = details.SellPrice,
+                Discount = details.Discount,
+                Total = details.Total,
+                SellID = sells.SellID,
+            };
+
+            _context.Add(detail);
+            await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
 
@@ -122,7 +122,7 @@ namespace PurchaseDetailTask.Controllers
 
             //return View(sales);
 
-        }
+         }
 
         public async Task<IActionResult> Edit(int? id)
         {
