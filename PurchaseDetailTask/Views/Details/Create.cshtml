@@ -8,87 +8,95 @@
 <hr />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
-<div class="col-12 mx-auto pt-0">
-    <!--CARD-->
-    <div class="card w-100">
-        <div class="card-header bg-success text-uppercase text-white" style="height:45px;">
-            <h4>Create product details</h4>
-        </div>
-
-        <form asp-action="Create" id="DetailsForm">
-        
-        <table class="order-list">
-            <thead>
-                <tr>
-                    <td>Product</td>
-                    <td>Purchase price</td>
-                    <td>Sale price</td>
-                    <td>Quantity</td>
-                    <td>Discount</td>
-                    <td>Total</td>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td><input type="text" name="Product" /></td>
-                    <td><input type="text" name="PurchasePrice" /></td>
-                    <td><input type="text" name="SellPrice" /></td>
-                    <td><input type="text" name="Quantity" /></td>
-                    <td><input type="text" name="Discount" /></td>
-                    <td class="d-none"><input type="text" name="Profit" /></td>
-                    <td><input type="text" name="Total" readonly="readonly" /></td>
-                    <td><a class="btn btn-danger deleteRow">Remove</a></td>
-                </tr>
-            </tbody>
-
-            <tfoot>
-                <tr>
-                    <td colspan="5" style="text-align: center;">
-                        @*<input type="button" id="addrow" value="Add Product" />*@
-                        <button type="button" id="addrow" value="Add Product" class="btn btn-success">Add</button>
-                    </td>
-                </tr>
-
-                <tr class="text-right">
-                    <td>Total Price : $<span id="TotalPrice"></span></td>
-                </tr>
-
-                <tr>
-                    <td>
-                       Total Purchase price: $<span id="TotalPurchasePrice"></span>
-                    </td>
-                    <td >
-                        Total Sale price: $<span id="TotalSalePrice"></span>
-                    </td>
-                    <td >
-                        Total Quantity: $<span id="TotalQuantity"></span>
-                    </td>
-                     <td >
-                       Total Discount: $<span id="TotalDiscount"></span>
-                    </td>
-                     <td >
-                        Total Profit: $<span id="TotalProfit"></span>
-                    </td>
-            
-                </tr>
-            </tfoot>
-        </table>
-        
-        <!--ACTION BUTTON-->
-        <div class="col-12 btn-group mt-2">
-            <div class="col-6 form-group text-right p-2 ms-5">
-                <a asp-action="Index" class="btn btn-secondary w-50 ms-5 d-block">&nbsp;Back&nbsp;</a>
-            </div>
-
-            <div class="col-6 form-group text-left p-2">
-                @*<input hidden class="TotalRow" value="" name="TotalRow" type="text"/>*@
-                <input type="submit" value="Create" class="btn btn-primary w-50 d-block" />
-            </div>
-        </div>
-        </form>
+<!--CARD-->
+<div class="card w-100">
+    <div class="card-header bg-success text-uppercase text-white mb-3" style="height:45px;">
+        <h4>Create product details</h4>
     </div>
 
+    <!--FORM-->
+    <form asp-action="Create" id="DetailsForm">
+        <div class="row col-12">      
+            <div class="col-12 ml-5">
+       
+            <!--TABLE-->
+            <table class="order-list table table-borderless table-sm mb-0 pb-0">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Purchase price</th>
+                        <th>Sale price</th>
+                        <th>Quantity</th>
+                        <th>Discount</th>
+                        <th>Total</th>
+
+                        <th style="width:60px;">
+                             <button type="button" id="addrow" value="Add Product" class="btn btn-success">Add</button>
+                        </th>                       
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td><input type="text" class="form-control" name="Product" /></td>
+                        <td><input type="text" class="form-control" name="PurchasePrice" /></td>
+                        <td><input type="text" class="form-control" name="SellPrice" /></td>
+                        <td><input type="text" class="form-control" name="Quantity" /></td>
+                        <td><input type="text" class="form-control" name="Discount" /></td>
+                        <td class="d-none"><input type="text" class="form-control" name="Profit" /></td>
+                        <td><input type="text" class="form-control" name="Total" readonly="readonly" /></td>
+                        
+                        <td style="width:60px;">                            
+                            <a class="btn btn-sm btn-danger deleteRow">Remove</a>
+                         </td>                       
+                    </tr>
+                </tbody>
+
+                <tfoot>
+                    
+
+                    <tr>
+                        <td colspan="6" style="text-align: right;">Total Price : <span id="TotalPrice"></span></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td>
+                            Total Purchase price: <span id="TotalPurchasePrice"></span>
+                        </td>
+                        <td >
+                            Total Sale price: <span id="TotalSalePrice"></span>
+                        </td>
+                        <td >
+                            Total Quantity: <span id="TotalQuantity"></span>
+                        </td>
+                            <td >
+                            Total Discount: <span id="TotalDiscount"></span>
+                        </td>
+                            <td >
+                            Total Profit: <span id="TotalProfit"></span>
+                        </td>
+            
+                    </tr>
+                </tfoot>
+            </table>
+
+            </div>
+
+            <!--ACTION BUTTON-->
+            <div class="col-12 btn-group mt-2 mb-2">
+                <div class="col-6 form-group text-right p-2 ms-5">
+                    <a asp-action="Index" class="btn btn-secondary w-50 ms-5 d-block">&nbsp;Back&nbsp;</a>
+                </div>
+
+                <div class="col-6 form-group text-left p-2">
+                    @*<input hidden class="TotalRow" value="" name="TotalRow" type="text"/>*@
+                    <input type="submit" value="Create" class="btn btn-primary w-50 d-block" />
+                </div>
+            </div>
+        </div>
+    </form>
+        
 </div>
 
 
@@ -102,14 +110,14 @@
 
         var newRow = $("<tr>");
         var cols = "";
-        cols += '<td><input type="text" name="Product' + counter + '"/></td>';
-        cols += '<td><input type="text" name="PurchasePrice' + counter + '"/></td>';
-        cols += '<td><input type="number" name="SellPrice' + counter + '"/></td>';
-        cols += '<td><input type="number" name="Quantity' + counter + '"/></td>';
-        cols += '<td><input type="number" name="Discount' + counter + '"/></td>'; 
-        cols += '<td class="d-none"><input type="number" name="Profit' + counter + '"/></td>';
-        cols += '<td><input type="text" name="Total' + counter + '" readonly="readonly"/></td>';
-        cols += '<td><a class="btn btn-danger deleteRow">Remove</a></td>';
+        cols += '<td><input type="text" class="form-control" name="Product' + counter + '"/></td>';
+        cols += '<td><input type="text" class="form-control" name="PurchasePrice' + counter + '"/></td>';
+        cols += '<td><input type="number" class="form-control" name="SellPrice' + counter + '"/></td>';
+        cols += '<td><input type="number" class="form-control" name="Quantity' + counter + '"/></td>';
+        cols += '<td><input type="number" class="form-control" name="Discount' + counter + '"/></td>'; 
+        cols += '<td class="d-none"><input type="number" class="form-control" name="Profit' + counter + '"/></td>';
+        cols += '<td><input type="text" class="form-control" name="Total' + counter + '" readonly="readonly"/></td>';
+        cols += '<td style="width:60px;"><a class="btn btn-sm btn-danger deleteRow">Remove</a></td>';
         newRow.append(cols);
 
         $("table.order-list").append(newRow);
